@@ -1,0 +1,13 @@
+---
+# tasks file for zeek
+
+- name: Setup Zeek for Debian
+  include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Setup Zeek for CentOS
+  include_tasks: setup-Redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Apply Configurations/Filters for Zeek
+  include_tasks: filters.yml

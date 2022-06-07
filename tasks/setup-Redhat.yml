@@ -1,0 +1,27 @@
+---
+
+- name: Install necessary apt dependencies
+  become: yes
+  ansible.builtin.yum:
+    name:
+      - gcc
+      - gcc-c++
+      - flex
+      - bison
+      - libcap-devel
+      - openssl-devel	
+      - python3
+      - python3-devel
+      - zlib-devel
+
+- name: Retrieve Zeek Repository
+  become: yes
+  ansible.builtin.yum_repository:
+    repo: https://download.opensuse.org/repositories/security:zeek/CentOS_7/security:zeek.repo
+    state: present
+
+- name: Install Zeek
+  become: yes
+  ansible.builtin.yum:
+    name: zeek
+    state: present

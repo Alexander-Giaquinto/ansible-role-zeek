@@ -1,0 +1,44 @@
+---
+
+- name: Install necessary apt dependencies 
+  become: yes
+  ansible.builtin.apt:
+    name:
+      - bison
+      - cmake
+      - curl
+      - flex
+      - gcc
+      - g++
+      - libpcap-dev
+      - libssl-dev
+      - make
+      - python3
+      - python3-dev
+      - swig
+      - zlib1g-dev
+
+- name: Retrieve Zeek repository key
+  become: yes
+  ansible.builtin.apt_key:
+    url: https://download.opensuse.org/repositories/security:zeek/Debian_{{ ansible_distribution_release }}/Release.key
+    state: present
+
+- name: Retrieve Zeek Repository
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: deb http://download.opensuse.org/repositories/security:/zeek/Debian_{{ ansible_distribution_release}}/ /
+    state: present
+
+- name: Install Zeek
+  become: yes
+  ansible.builtin.apt:
+    name: zeek-lts
+    state: present
+    update_cache: yes
+
+- name: Export Path
+  become: yes
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    line: export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/zeek/bin

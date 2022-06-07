@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Sectigo/Alexander Giaquinto
+  description: Install and configure IDS tool Zeek
+  company: Sectigo
+
+  license: license (GPL-2.0-or-later, MIT, etc)
+
+  min_ansible_version: 2.1
+
+   platforms:
+   - name: Debian
+     versions:
+     - bullseye (11)
+     - buster (10)
+
+  galaxy_tags:
+    - zeek
+    - IDS
+
+dependencies: []

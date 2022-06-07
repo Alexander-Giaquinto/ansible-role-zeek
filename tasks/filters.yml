@@ -1,0 +1,22 @@
+---
+
+- name: Apply configuration files
+  become: yes
+  ansible.builtin.copy:
+    src:
+    dest: /opt/zeek/etc/networks.cfg
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Apply configurations and start zeek
+  become: yes
+  command: zeek deploy
+
+- name: Zeek Status Check 
+  become: yes
+  command: zeekctl status
+  register: zeek_status
+
+- debug:
+   var: zeek_status.stdout_lines
